@@ -36,9 +36,16 @@ class AirGradient2MQTT:
     def fetch_sensor_data(self, location_id):
         logging.info("Fetching data for location_id %s" % location_id)
         url = f"https://api.airgradient.com/public/api/v1/locations/{location_id}/measures/current?token={self.config['airgradient']['token']}"
-        r = requests.get(url)
-        logging.debug("Got data for location_id %s: %s" % (location_id, r.json()))
-        return r.text
+        try:
+            r = requests.get(url, timeout=3)
+            logging.debug("Got data for location_id %s: %s" % (location_id, r.json()))
+            return r.text
+        except requests.exceptions.Timeout:
+            logging.warning("Timeout of 3 seconds reached. Will retry later.")
+            return False
+        except requests.exceptions.RequestException as e:
+            logging.warning(f"Request error encountered {e}")
+            return False
 
     def mqtt_on_connect(self, client, userdata, flags, rc, properties):
         logging.info("MQTT: Connected with result code "+str(rc))
@@ -73,8 +80,8 @@ class AirGradient2MQTT:
 
                         for sensor in self.config['sensors']:
                             sensor_data = self.fetch_sensor_data(sensor['location_id'])
-                            if sensor_data is not None:
-                                self.mqtt_client.publish(f"{self.config['mqtt']['base_topic']}/{sensor['serial']}", sensor_data)
+                            if sensor_data:
+                                self.mqtt_client.publish(f"{self.config['mqtt']['base_topic'].removesuffix("/")}/{sensor['serial']}", sensor_data)
 
                         logging.debug("Sleeping for %s seconds..." % self.config['airgradient']['fetch_every'])
                         self.last_run = time.time()
