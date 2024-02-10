@@ -1,0 +1,20 @@
+---
+
+airgradient:
+    token: abcdefgh
+    fetch_every: 30
+
+mqtt:
+    server:
+    port: 1883
+    user:
+    password:
+    base_topic: airgradient/readings/
+
+sensors:
+    - name: Office
+      serial: xxxyyyzzz
+      location_id: 12345
+    - name: Workshop
+      serial: xxxyyyzzz2
+      location_id: 123456
