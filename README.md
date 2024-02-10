@@ -15,7 +15,7 @@ services:
   pywishlist:
     container_name: airgradient2mqtt
     restart: unless-stopped
-    image: ghcr.io/oxivanisher/airgradient2mqtt:main
+    image: ghcr.io/oxivanisher/pyairgradient2mqtt:main
     volumes:
       - ./config:/app/config:ro
 ```
