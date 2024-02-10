@@ -7,6 +7,7 @@ will be implemented in the future.
 
 ## Example docker-compose.yml
 If you want to run it with docker compose, here is a example. Please remember to create a `config/config.yml` file.
+
 ```yaml
 ---
 version: "3"
