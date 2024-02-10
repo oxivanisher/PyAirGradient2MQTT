@@ -9,7 +9,7 @@ mqtt:
     port: 1883
     user:
     password:
-    base_topic: airgradient/readings/
+    base_topic: airgradient/readings
 
 sensors:
     - name: Office
