@@ -2,7 +2,7 @@
 
 airgradient:
     token: abcdefgh
-    fetch_every: 30
+    fetch_every: 60
 
 mqtt:
     server:
