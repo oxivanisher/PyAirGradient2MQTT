@@ -5,3 +5,16 @@ Since the current AirGradient ONE does [not support MQTT](https://forum.airgradi
 [as it was a sensor](https://www.airgradient.com/support/kb-mqtt-conf/). The aim is to just simulate the behaviour that
 will be implemented in the future.
 
+## Example docker-compose.yml
+If you want to run it with docker compose, here is a example. Please remember to create a `config/config.yml` file.
+```yaml
+---
+version: "3"
+services:
+  pywishlist:
+    container_name: airgradient2mqtt
+    restart: unless-stopped
+    image: ghcr.io/oxivanisher/airgradient2mqtt:master
+    volumes:
+      - ./config:/app/config:ro
+```
