@@ -13,7 +13,7 @@ If you want to run it with docker compose, here is a example. Please remember to
 ---
 version: "3"
 services:
-  pywishlist:
+  airgradient2mqtt:
     container_name: airgradient2mqtt
     restart: unless-stopped
     image: ghcr.io/oxivanisher/pyairgradient2mqtt:main
